@@ -1,6 +1,8 @@
+using EnhanzerApi.DTOs;
+
 namespace EnhanzerApi.Services;
 
 public interface IExternalAuthService
 {
-    Task<ExternalAuthResult> LoginAsync(string email, string password);
+    Task<ExternalAuthResultDTO> LoginAsync(string email, string password);
 }
