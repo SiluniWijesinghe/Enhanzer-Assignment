@@ -14,8 +14,6 @@ public class LocationService : ILocationService
         _db = db;
     }
 
-    // Replaces this company's saved locations with the fresh set returned
-    // by the login call, so Location_Details always reflects the latest login.
     public async Task SaveLocationsAsync(string companyCode, List<UserLocationDto> locations)
     {
         var existing = _db.LocationDetails.Where(l => l.CompanyCode == companyCode);

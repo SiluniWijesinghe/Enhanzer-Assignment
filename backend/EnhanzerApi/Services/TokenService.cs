@@ -4,9 +4,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
 namespace EnhanzerApi.Services;
-// Issues our own short-lived JWT once the external POS API has confirmed
-// the user's credentials. Angular never sees the external API's own
-// session details -- it only ever talks to our backend using this token.
+
 public class TokenService : ITokenService
 {
     private readonly IConfiguration _config;
