@@ -1,0 +1,13 @@
+# .NET
+backend/EnhanzerApi/bin/
+backend/EnhanzerApi/obj/
+*.user
+
+# Angular / Node
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# Misc
+.vscode/
+.DS_Store
