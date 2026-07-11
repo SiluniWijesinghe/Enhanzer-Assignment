@@ -52,11 +52,13 @@ public class ExternalAuthService : IExternalAuthService
             API_Body = new { Username = email, Pw = password }
         };
 
+        var json = JsonSerializer.Serialize(payload);
+
         HttpResponseMessage response;
         try
         {
-            _logger.LogWarning("OUTGOING REQUEST PAYLOAD: {Json}", JsonSerializer.Serialize(payload));
-            response = await _httpClient.PostAsJsonAsync(endpoint, payload);
+            using var content = new StringContent(json, Encoding.UTF8, "application/json");
+            response = await _httpClient.PostAsync(endpoint, content);
         }
         catch (Exception ex)
         {
@@ -72,7 +74,6 @@ public class ExternalAuthService : IExternalAuthService
         }
 
         var rawJson = await response.Content.ReadAsStringAsync();
-        _logger.LogWarning("RAW EXTERNAL API RESPONSE: {Json}", rawJson);
 
         var result = JsonSerializer.Deserialize<PosApiResponse>(rawJson, new JsonSerializerOptions
         {
