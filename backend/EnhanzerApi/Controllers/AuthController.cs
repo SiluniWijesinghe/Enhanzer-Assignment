@@ -30,8 +30,7 @@ public class AuthController : ControllerBase
         if (!result.Success)
             return Unauthorized(new AuthErrorDto { Message = result.ErrorMessage ?? "Invalid email or password." });
 
-        // Company_Code was set to the user's email when calling the external API,
-        // so we key the saved locations by that same value.
+   
         await _locationService.SaveLocationsAsync(request.Email, result.Locations);
 
         var (token, expiresAtUtc) = _tokenService.GenerateToken(request.Email);
