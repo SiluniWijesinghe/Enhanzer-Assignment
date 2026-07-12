@@ -7,11 +7,9 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- Database ---
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// --- App services ---
 builder.Services.AddHttpClient<IExternalAuthService, ExternalAuthService>(client =>
 {
     client.Timeout = TimeSpan.FromSeconds(30);
@@ -19,7 +17,6 @@ builder.Services.AddHttpClient<IExternalAuthService, ExternalAuthService>(client
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
 
-// --- Auth: validate the JWT we issue ourselves after a successful external login ---
 var jwtSection = builder.Configuration.GetSection("Jwt");
 builder.Services.AddAuthentication(options =>
 {
@@ -42,7 +39,6 @@ builder.Services.AddAuthentication(options =>
 });
 builder.Services.AddAuthorization();
 
-// --- CORS: only the Angular dev server can call this API ---
 var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
 builder.Services.AddCors(options =>
 {
@@ -57,18 +53,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+app.UseDefaultFiles();   // serves index.html at "/"
+app.UseStaticFiles(); 
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseRouting();
 app.UseCors("AngularClient");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapFallbackToFile("index.html");  // lets Angular routes work on refresh
 
 app.Run();

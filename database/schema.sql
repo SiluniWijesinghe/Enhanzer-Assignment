@@ -1,13 +1,13 @@
-IF NOT EXISTS (SELECT name
-FROM sys.databases
-WHERE name = 'EnhanzerAssignmentDb')
-BEGIN
-    CREATE DATABASE EnhanzerAssignmentDb;
-END
-GO
+-- IF NOT EXISTS (SELECT name
+-- FROM sys.databases
+-- WHERE name = 'EnhanzerAssignmentDb')
+-- BEGIN
+--     CREATE DATABASE EnhanzerAssignmentDb;
+-- END
+-- GO
 
-USE EnhanzerAssignmentDb;
-GO
+-- USE EnhanzerAssignmentDb;
+-- GO
 
 IF NOT EXISTS (SELECT *
 FROM sys.tables

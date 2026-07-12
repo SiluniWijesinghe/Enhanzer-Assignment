@@ -1,6 +1,7 @@
 # .NET
 backend/EnhanzerApi/bin/
 backend/EnhanzerApi/obj/
+backend/EnhanzerApi/publish/
 *.user
 
 # Angular / Node

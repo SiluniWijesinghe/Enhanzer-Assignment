@@ -1,7 +1,7 @@
 # Enhanzer Assignment — Purchase Bill App
 
 Angular + ASP.NET Core (.NET 8) + SQL Server solution for the Full Stack Developer
-take-home assignment (Login → Purchase Bill).
+take-home assignment (Login & Purchase Bill).
 
 ## Project layout
 
