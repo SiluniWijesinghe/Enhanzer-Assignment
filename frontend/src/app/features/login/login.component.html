@@ -1,0 +1,43 @@
+<div class="login-page">
+  <form class="login-card" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h1>Hi</h1>
+
+    <div class="field">
+      <span class="icon">✉</span>
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Email*"
+        autocomplete="username"
+      />
+    </div>
+    <div class="error-text" *ngIf="form.controls.email.touched && form.controls.email.invalid">
+      <span *ngIf="form.controls.email.errors?.['required']">Email is required.</span>
+      <span *ngIf="form.controls.email.errors?.['email']">Enter a valid email address.</span>
+    </div>
+
+    <div class="field">
+      <span class="icon">🔑</span>
+      <input
+        [type]="showPassword() ? 'text' : 'password'"
+        formControlName="password"
+        placeholder="Password*"
+        autocomplete="current-password"
+      />
+      <button type="button" class="toggle-visibility" (click)="togglePasswordVisibility()">
+        {{ showPassword() ? '🙈' : '👁' }}
+      </button>
+    </div>
+    <div class="error-text" *ngIf="form.controls.password.touched && form.controls.password.invalid">
+      Password is required.
+    </div>
+
+    <div class="error-text server-error" *ngIf="errorMessage()">
+      {{ errorMessage() }}
+    </div>
+
+    <button type="submit" class="btn-primary login-btn" [disabled]="isSubmitting()">
+      {{ isSubmitting() ? 'Signing in...' : 'LOGIN' }}
+    </button>
+  </form>
+</div>
